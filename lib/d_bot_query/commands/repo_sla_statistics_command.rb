@@ -49,37 +49,50 @@ module DBotQuery
     class RepoSLAStatisticsCommand < CommandBase
       def initialize(time:)
         super()
-        @time = time
+        time = Time.parse(time) if time.is_a?(String)
+        @time = time || Time.now
         @date = @time.to_date
       end
 
       def perform(input)
+        # Here we select only those which are in violation of the SLA.
+        violation_map = sla_map(input).select do |finding|
+          finding[:days_open] > SLA_DEFINITION[finding[:severity].to_sym]
+        end
+
+        # And finally group by the repo
+        violation_map.group_by { |finding| finding[:repo] }.to_h do |repo, findings|
+          sum_repo(repo, findings)
+        end
+      end
+
+      private
+
+      def sum_repo(repo, findings)
+        by_level = findings.group_by { |finding| finding[:severity].to_sym }.transform_values(&:count)
+        by_level = SLA_DEFINITION.to_h { |key, _| [key, 0] }.merge(by_level)
+        by_level[:total] = by_level.values.sum
+        [repo.to_sym, by_level]
+      end
+
+      def sla_map(input)
         # Here we build an intermediate map of findings to their SLA violations.  It will contain all vulerabilities,
         # their severity and the number of days open.
-        sla_map = input.map do |finding|
-          days_open = if finding[:fixed_at]
-                        (Time.parse(finding[:fixed_at]).to_date - Time.parse(finding[:created_at]).to_date).to_i
-                      else
-                        (@date - Time.parse(finding[:created_at]).to_date).to_i
-                      end
-
+        input.map do |finding|
           {
             repo: finding[:repository][:full_name],
-            days_open: days_open,
+            days_open: days_open(finding),
             severity: finding[:security_advisory][:severity]
           }
         end
+      end
 
-        # Here we select only those which are in violation of the SLA.
-        violation_map = sla_map.select { |finding| finding[:days_open] > SLA_DEFINITION[finding[:severity].to_sym] }
-
-        # And finally group by the repo
-        violation_map.group_by { |finding| finding[:repo] }.map do |repo, findings|
-          by_level = findings.group_by { |finding| finding[:severity].to_sym }.transform_values(&:count)
-          by_level = SLA_DEFINITION.map { |key, _| [key, 0] }.to_h.merge(by_level)
-          by_level[:total] = by_level.values.sum
-          [repo, by_level]
-        end.to_h
+      def days_open(finding)
+        if finding[:fixed_at]
+          (Time.parse(finding[:fixed_at]).to_date - Time.parse(finding[:created_at]).to_date).to_i
+        else
+          (@date - Time.parse(finding[:created_at]).to_date).to_i
+        end
       end
     end
   end

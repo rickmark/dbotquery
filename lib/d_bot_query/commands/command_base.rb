@@ -10,9 +10,7 @@ module DBotQuery
     #   which produces the proper hash for the command.  Execute will then properly format and output the result
     #   to the console.
     class CommandBase
-      # When set to true, the output will be colorized.  Defaults to true if interactive.  False is useful for
-      # non-interactive output (e.g. to a file).
-      attr_accessor :colorize_output
+      attr_reader :result
 
       # Abstract initializer
       def initialize

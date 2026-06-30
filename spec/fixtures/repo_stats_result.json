@@ -1,0 +1,163 @@
+{
+  "dogexchange/blockchain-integration-library": {
+    "low": 1,
+    "medium": 8,
+    "high": 15,
+    "critical": 4,
+    "total": 28
+  },
+  "dogexchange/blocklinklib": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 1,
+    "total": 2
+  },
+  "dogexchange/account-reconciliation-tool": {
+    "low": 2,
+    "medium": 5,
+    "high": 11,
+    "critical": 3,
+    "total": 21
+  },
+  "dogexchange/finanalytx": {
+    "low": 2,
+    "medium": 1,
+    "high": 0,
+    "critical": 1,
+    "total": 4
+  },
+  "dogexchange/risk-management-toolkit": {
+    "low": 0,
+    "medium": 1,
+    "high": 1,
+    "critical": 1,
+    "total": 3
+  },
+  "dogexchange/credit-score-modeling": {
+    "low": 0,
+    "medium": 0,
+    "high": 3,
+    "critical": 0,
+    "total": 3
+  },
+  "dogexchange/financial-analytics-dashboard": {
+    "low": 1,
+    "medium": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/loan-approval-automation": {
+    "low": 0,
+    "medium": 1,
+    "high": 4,
+    "critical": 0,
+    "total": 5
+  },
+  "dogexchange/payment-processing-service": {
+    "low": 0,
+    "medium": 1,
+    "high": 1,
+    "critical": 0,
+    "total": 2
+  },
+  "dogexchange/investment-portfolio-tracker": {
+    "low": 1,
+    "medium": 3,
+    "high": 0,
+    "critical": 0,
+    "total": 4
+  },
+  "dogexchange/finreportgen": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/fraud-prevention-api": {
+    "low": 1,
+    "medium": 1,
+    "high": 1,
+    "critical": 1,
+    "total": 4
+  },
+  "dogexchange/algorithmic-trading-strategies": {
+    "low": 0,
+    "medium": 1,
+    "high": 1,
+    "critical": 1,
+    "total": 3
+  },
+  "dogexchange/payment-gateway-integration": {
+    "low": 0,
+    "medium": 1,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/transaction-monitoring-system": {
+    "low": 0,
+    "medium": 1,
+    "high": 1,
+    "critical": 1,
+    "total": 3
+  },
+  "dogexchange/datencrypt": {
+    "low": 1,
+    "medium": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/market-sentiment-analysis": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/riskkit": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/loanauto": {
+    "low": 0,
+    "medium": 1,
+    "high": 1,
+    "critical": 0,
+    "total": 2
+  },
+  "dogexchange/financial-report-generation": {
+    "low": 0,
+    "medium": 1,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/frauddetect": {
+    "low": 0,
+    "medium": 1,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/fraud-detection-algorithms": {
+    "low": 1,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 2
+  },
+  "dogexchange/sentimentanal": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
+  }
+}

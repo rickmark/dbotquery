@@ -34,7 +34,7 @@ module DBotQuery
     medium: 30,
     high: 15,
     critical: 5
-  }
+  }.freeze
 
   # Module that contains the abstract base class for all commands, as well as the implementations.  These
   # are separated in this way to allow for easier testing and maintenance.
