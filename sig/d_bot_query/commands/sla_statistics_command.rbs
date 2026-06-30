@@ -1,0 +1,6 @@
+module DBotQuery
+  module Commands
+    class SLAStatisticsCommand < RepoSLAStatisticsCommand
+    end
+  end
+end

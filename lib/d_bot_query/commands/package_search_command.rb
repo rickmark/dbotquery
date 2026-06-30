@@ -3,7 +3,7 @@
 module DBotQuery
   module Commands
     # # Package Search
-    # One question we often get asked is "do we use X library?" This subcommand will help us
+    # One question we often get asked is `do we use an X library?`. This subcommand will help us
     # answer that. The subcommand should take a package name, and the result should contain a list
     # of all the repositories where that package was seen.
     #

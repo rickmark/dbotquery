@@ -11,25 +11,25 @@ module DBotQuery
     #
     # The SLA for each severity is as follows:
     #
-    # * Low: 60 Days
-    # * Medium: 30 Days
-    # * High: 15 Days
-    # * Critical: 5 Days
+    # | Type | Days |
+    # |------|------|
+    # | Low | 60|
+    # | Medium | 30|
+    # | High | 15|
+    # | Critical | 5|
     #
     # For this subcommand, we should output the number of vulnerabilities that have been open
     # longer than the SLA allows for, separated by severity.
     # ## Inputs
     #
     # ### Example commands
-    # * ./your_program sla_stats -f dependabot.json
-    # ○ A count of all findings that exceed the SLA, separated by severity. The current
-    # time is used when calculating age.
-    # ● ./your
-    # _program sla
-    # _
-    # stats -f dependabot.json -t 2023-01-01T00:00:00Z
-    # ○ A count of all findings that exceed the SLA, separated by severity. The time
-    # specified is used when calculating age.
+    # * `./your_program sla_stats -f dependabot.json`
+    # ** A count of all findings that exceed the SLA, separated by severity. The current time is used
+    # when calculating age.
+    # * `./your_program sla_stats -f dependabot.json -t 2023-01-01T00:00:00Z
+    # ** A count of all findings that exceed the SLA, separated by severity. The time specified is
+    # used when calculating age.
+    #
     # ### Outputs
     # ```json
     # {
@@ -40,7 +40,8 @@ module DBotQuery
     # "total": $count
     # }
     # ```
-    # Where “$count” represents the number of findings that exceed the SLA for each severity.
+    #
+    # Where `$count` represents the number of findings that exceed the SLA for each severity.
     class SLAStatisticsCommand < RepoSLAStatisticsCommand
       def perform(input)
         result = super

@@ -1,15 +1,36 @@
 module DBotQuery
   module Commands
     class CommandBase
-      @result: Hash[String, untyped]
+      type output = Hash[String, untyped] | Array[String] | Hash[Symbol, untyped]
+      type severity = :low | :medium | :high | :critical
+      type state = :open | :fixed | :dismissed
+      type finding = {
+          created_at: String,
+          ?fixed_at: String,
+          dependency: {
+              package: {
+                  name: String
+                }
+            },
+          repository: {
+              full_name: String
+            },
+          state: state,
+          security_advisory: {
+              severity: severity
+            }
+        }
+      type input = Array[finding]
 
-      attr_accessor colorize_output: boolish
+      @result: output
+
+      attr_reader result: output
 
       def initialize: -> void
 
       def execute!: (String file) -> void
 
-      def perform: -> Hash[Symbol, untyped]
+      def perform: (input) -> { count: Integer }
     end
     end
   end

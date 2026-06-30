@@ -10,6 +10,7 @@ module DBotQuery
     #   which produces the proper hash for the command.  Execute will then properly format and output the result
     #   to the console.
     class CommandBase
+      # The object result of the perform method.  This is prior to serialization allowing composition of commands
       attr_reader :result
 
       # Abstract initializer
@@ -42,7 +43,7 @@ module DBotQuery
       #
       # @abstract
       # @return Hash
-      def perform
+      def perform(_input)
         raise NotImplementedError, '#perform is abstract and must be implemented in derived classes'
       end
     end

@@ -3,48 +3,42 @@
 
 module DBotQuery
   module Commands
-    # Service Level Agreement Stats by Repo
+    # # Service Level Agreement Stats by Repo
     # Now that we can get SLA stats for the entire organization, we want to view SLA stats for specific
     # repositories as well. This will allow us to disseminate SLA statistics by repository, so the right
     # people can view information specific to their code.
     # Effectively, this will be the same thing as the previous subcommand, just broken out by
     # repository.
-    # Command Line Flag Required? Description Example
-    # -f/--file yes Path to JSON file exported from
-    # Dependabot
-    # dependabot.json
-    # --time no The date/time for which the SLA
-    # is being calculated, in ISO8601
-    # format
-    # 2023-01-01T00:00:00Z
-    # Inputs
-    # Example commands
-    # ● ./your
-    # _program repo
-    # sla
-    # _
-    # _
-    # stats -f dependabot.json
-    # ○ A count of all findings that exceed the SLA, separated by severity and repository.
-    # The current time is used when calculating age.
-    # ● ./your
-    # _program repo
-    # sla
-    # _
-    # _
-    # stats -f dependabot.json -t 2023-01-01T00:00:00Z
-    # ○ A count of all findings that exceed the SLA, separated by severity and repository.
-    # The time specified is used when calculating age.
-    # Outputs
-    # Python
+    #
+    # ## Inputs
+    #
+    # | Command Line Flag | Required? | Description | Example |
+    # | :--- | :--- | :--- | :--- |
+    # | -f/--file | yes | Path to JSON file exported from Dependabot | dependabot.json |
+    # | --time | no | The date/time for which the SLA is being calculated, in ISO8601 format | 2023-01-01T00:00:00Z |
+    #
+    # ##Example commands
+    #
+    # * `./your_program repo_sla_stats -f dependabot.json`
+    # ** A count of all findings that exceed the SLA, separated by severity and repository. The current time is
+    # used when calculating age.
+    # * `./your_program repo_sla_stats -f dependabot.json -t 2023-01-01T00:00:00Z`
+    # ** A count of all findings that exceed the SLA, separated by severity and repository. The time specified is
+    # used when calculating age.
+    #
+    # ## Outputs
+    #
+    # ```json
     # {
     # "org/repo": { "low": $count, "medium": $count, "high": $count, "critical":
     # $count, "total": $count },
     # "org/repo2": { "low": $count, "medium": $count, "high": $count, "critical":
     # $count, "total": $count }
     # }
+    # ```
+    #
     # The output is roughly the same as with the previous subcommand, except broken out by
-    # repository. The keys here are each individual repository, and the values are their corresponding
+    # repository. The keys here are each repository, and the values are their corresponding
     # SLA stats.
     class RepoSLAStatisticsCommand < CommandBase
       def initialize(time:)
@@ -57,7 +51,8 @@ module DBotQuery
       def perform(input)
         # Here we select only those which are in violation of the SLA.
         violation_map = sla_map(input).select do |finding|
-          finding[:days_open] > SLA_DEFINITION[finding[:severity].to_sym]
+          severity = finding[:severity].to_sym #: DBotQuery::Commands::CommandBase::severity
+          finding[:days_open] > SLA_DEFINITION[severity]
         end
 
         # And finally group by the repo
@@ -69,14 +64,16 @@ module DBotQuery
       private
 
       def sum_repo(repo, findings)
-        by_level = findings.group_by { |finding| finding[:severity].to_sym }.transform_values(&:count)
-        by_level = SLA_DEFINITION.to_h { |key, _| [key, 0] }.merge(by_level)
-        by_level[:total] = by_level.values.sum
-        [repo.to_sym, by_level]
+        by_level = findings.group_by do |finding|
+          finding[:severity].to_sym #: DBotQuery::Commands::CommandBase::severity
+        end
+        by_level = SLA_DEFINITION.to_h { |key, _| [key, 0] }.merge(by_level.transform_values(&:count))
+
+        [repo.to_sym, { **by_level, total: by_level.values.sum }]
       end
 
       def sla_map(input)
-        # Here we build an intermediate map of findings to their SLA violations.  It will contain all vulerabilities,
+        # Here we build an intermediate map of findings to their SLA violations.  It will contain all vulnerabilities,
         # their severity and the number of days open.
         input.map do |finding|
           {

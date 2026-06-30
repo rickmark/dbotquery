@@ -1,3 +1,5 @@
 module DBotQuery
   VERSION: String
+
+  SLA_DEFINITION: Hash[Commands::CommandBase::severity, Integer]
 end

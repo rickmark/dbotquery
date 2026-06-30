@@ -59,7 +59,7 @@ module DBotQuery
 
       @command.execute!(file)
     rescue StandardError => e
-      error e.message
+      warn e.message
     end
   end
 end

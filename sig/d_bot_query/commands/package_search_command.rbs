@@ -4,6 +4,8 @@ module DBotQuery
       attr_reader package: String
 
       def initialize: (package: String) -> void
+
+      def perform: (CommandBase::input) -> Array[String]
     end
   end
 end
