@@ -1,0 +1,22 @@
+module DBotQuery
+  class CLI < Thor
+    # These are fixups for Thor missing annotations
+    def self.long_desc: (String) -> void
+
+    @command: Commands::CommandBase
+
+    def package_search: (package: String) -> void
+
+    def repo_sla_stats: -> untyped
+
+    def sla_stats: -> untyped
+
+    def summary: (state: Symbol?, severity: Symbol?) -> void
+
+    private
+
+    def color_enabled?: -> bool
+
+    def run!: (Commands::CommandBase) -> void
+  end
+end

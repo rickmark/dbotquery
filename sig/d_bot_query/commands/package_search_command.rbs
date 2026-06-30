@@ -1,0 +1,9 @@
+module DBotQuery
+  module Commands
+    class PackageSearchCommand < CommandBase
+      attr_reader package: String
+
+      def initialize: (package: String) -> void
+    end
+  end
+end

@@ -1,0 +1,16 @@
+plugins:
+  - rubocop-rake
+  - rubocop-rspec
+  - rubocop-yard
+  - rubocop-performance
+
+
+AllCops:
+  TargetRubyVersion: 4.0
+  NewCops: enable
+
+Layout/LeadingCommentSpace:
+  AllowRBSInlineAnnotation: true
+
+Lint/SelfAssignment:
+  AllowRBSInlineAnnotation: true

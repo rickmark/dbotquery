@@ -1,0 +1,16 @@
+module DBotQuery
+  module Commands
+    class CommandBase
+      @result: Hash[String, untyped]
+
+      attr_accessor colorize_output: boolish
+
+      def initialize: -> void
+
+      def execute!: (String file) -> void
+
+      def perform: -> Hash[Symbol, untyped]
+    end
+    end
+  end
+
