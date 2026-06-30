@@ -31,6 +31,12 @@ module DBotQuery
 
         @package = package
       end
+
+      def perform(input)
+        input.select do |finding|
+          finding[:dependency][:package][:name] == @package
+        end.map { |finding| finding[:repository][:full_name] }.uniq
+      end
     end
   end
 end

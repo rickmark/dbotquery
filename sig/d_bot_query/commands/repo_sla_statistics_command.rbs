@@ -1,0 +1,9 @@
+module DBotQuery
+  module Commands
+    class RepoSLAStatisticsCommand
+      @time: Time
+
+      def initialize: (Time) -> void
+    end
+  end
+end

@@ -3,6 +3,8 @@
 
 require 'json'
 require 'thor'
+require 'time'
+require 'date'
 require_relative 'd_bot_query/version'
 
 # # Dependabot Data Viewer
@@ -27,13 +29,20 @@ module DBotQuery
 
   autoload :CLI, 'd_bot_query/cli'
 
+  SLA_DEFINITION = {
+    low: 60,
+    medium: 30,
+    high: 15,
+    critical: 5
+  }
+
   # Module that contains the abstract base class for all commands, as well as the implementations.  These
   # are separated in this way to allow for easier testing and maintenance.
   module Commands
     autoload :CommandBase, 'd_bot_query/commands/command_base'
     autoload :PackageSearchCommand, 'd_bot_query/commands/package_search_command'
     autoload :SummaryCommand, 'd_bot_query/commands/summary_command'
-    autoload :RepoSLAStatistics, 'd_bot_query/commands/repo_sla_statistics_command'
+    autoload :RepoSLAStatisticsCommand, 'd_bot_query/commands/repo_sla_statistics_command'
     autoload :SLAStatisticsCommand, 'd_bot_query/commands/sla_statistics_command'
   end
 end

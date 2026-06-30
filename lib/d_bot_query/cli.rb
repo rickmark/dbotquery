@@ -27,19 +27,25 @@ module DBotQuery
     end
 
     desc 'sla_stats', 'Calculate the SLA statistics for a Dependabot JSON file'
+    method_option :time, desc: 'The time period to calculate the SLA statistics for', example: '2023-01-01T00:00:00Z',
+                         aliases: ['-t']
     def sla_stats
-      run! DBotQuery::Commands::SLAStatisticsCommand.new
+      time = options[:time] ? Time.parse(options[:time]) : Time.now
+      run! DBotQuery::Commands::SLAStatisticsCommand.new time: time
     end
 
     desc 'repo_sla_stats', 'Calculate the SLA statistics for a Dependabot JSON file for a given repository'
+    method_option :time, desc: 'The time period to calculate the SLA statistics for', example: '2023-01-01T00:00:00Z',
+                         aliases: ['-t']
     def repo_sla_stats
-      run! DBotQuery::Commands::RepoSLAStatisticsCommand.new
+      time = options[:time] ? Time.parse(options[:time]) : Time.now
+      run! DBotQuery::Commands::RepoSLAStatisticsCommand.new time: time
     end
 
     desc 'package_search', 'Search for a package in a Dependabot JSON file'
     option :package, desc: 'The name of the package to search for', required: true
-    def package_search(package:)
-      run! DBotQuery::Commands::PackageSearchCommand.new(package:)
+    def package_search
+      run! DBotQuery::Commands::PackageSearchCommand.new(package: options[:package])
     end
 
     private

@@ -47,6 +47,40 @@ module DBotQuery
     # repository. The keys here are each individual repository, and the values are their corresponding
     # SLA stats.
     class RepoSLAStatisticsCommand < CommandBase
+      def initialize(time:)
+        super()
+        @time = time
+        @date = @time.to_date
+      end
+
+      def perform(input)
+        # Here we build an intermediate map of findings to their SLA violations.  It will contain all vulerabilities,
+        # their severity and the number of days open.
+        sla_map = input.map do |finding|
+          days_open = if finding[:fixed_at]
+                        (Time.parse(finding[:fixed_at]).to_date - Time.parse(finding[:created_at]).to_date).to_i
+                      else
+                        (@date - Time.parse(finding[:created_at]).to_date).to_i
+                      end
+
+          {
+            repo: finding[:repository][:full_name],
+            days_open: days_open,
+            severity: finding[:security_advisory][:severity]
+          }
+        end
+
+        # Here we select only those which are in violation of the SLA.
+        violation_map = sla_map.select { |finding| finding[:days_open] > SLA_DEFINITION[finding[:severity].to_sym] }
+
+        # And finally group by the repo
+        violation_map.group_by { |finding| finding[:repo] }.map do |repo, findings|
+          by_level = findings.group_by { |finding| finding[:severity].to_sym }.transform_values(&:count)
+          by_level = SLA_DEFINITION.map { |key, _| [key, 0] }.to_h.merge(by_level)
+          by_level[:total] = by_level.values.sum
+          [repo, by_level]
+        end.to_h
+      end
     end
   end
 end
