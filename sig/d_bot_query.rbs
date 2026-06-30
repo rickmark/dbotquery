@@ -2,4 +2,8 @@ module DBotQuery
   VERSION: String
 
   SLA_DEFINITION: Hash[Commands::CommandBase::severity, Integer]
+
+  class Error < StandardError
+
+  end
 end

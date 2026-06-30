@@ -2,12 +2,12 @@ module DBotQuery
   module Commands
     class RepoSLAStatisticsCommand < CommandBase
       type sum_type = CommandBase::severity | :total
-      type result = Hash[String, Hash[sum_type, Integer]]
+      type result = Hash[Symbol, Hash[sum_type, Integer]]
 
       type sla_map =  Array[{
           repo: String,
           days_open: Integer,
-          severity: String
+          severity: CommandBase::severity
         }]
 
       @date: Date

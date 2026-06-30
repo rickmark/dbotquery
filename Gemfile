@@ -17,7 +17,6 @@ end
 
 group :development do
   gem 'byebug'
-  gem 'foreman'
   gem 'pry'
   gem 'rubocop', '~> 1.21'
   gem 'rubocop-performance'

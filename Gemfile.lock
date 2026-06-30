@@ -17,8 +17,6 @@ GEM
     docile (1.4.1)
     ffi (1.17.4-arm64-darwin)
     fileutils (1.8.0)
-    foreman (0.90.0)
-      thor (~> 1.4)
     io-console (0.8.2)
     json (2.20.0)
     language_server-protocol (3.17.0.5)
@@ -137,7 +135,6 @@ PLATFORMS
 DEPENDENCIES
   byebug
   dbotquery!
-  foreman
   pry
   rake (~> 13.0)
   rbs
@@ -163,7 +160,6 @@ CHECKSUMS
   docile (1.4.1) sha256=96159be799bfa73cdb721b840e9802126e4e03dfc26863db73647204c727f21e
   ffi (1.17.4-arm64-darwin) sha256=19071aaf1419251b0a46852abf960e77330a3b334d13a4ab51d58b31a937001b
   fileutils (1.8.0) sha256=8c6b1df54e2540bdb2f39258f08af78853aa70bad52b4d394bbc6424593c6e02
-  foreman (0.90.0) sha256=ff675e2d47b607ac58714a6d4ac3e1ee8f06f41d8db084531c31961e2c3f117c
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   json (2.20.0) sha256=9362bc6e55a952b056abf9167cf053358181c904cb70cd6eee0808ea830fc32b
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc

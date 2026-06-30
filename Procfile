@@ -1,1 +1,0 @@
-yard: yard server -w --livereload -d lib/**/*.rb

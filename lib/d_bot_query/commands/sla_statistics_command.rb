@@ -48,7 +48,8 @@ module DBotQuery
 
         # Because this is just a generalization of the RepoSLAStatisticsCommand, we can gather those results
         # and combine them into a single hash
-        result.inject({}) do |accumulator, (_repo, value)|
+        base = SLA_DEFINITION.to_h { |severity, _days| [severity, 0] }
+        result.inject(base) do |accumulator, (_repo, value)|
           accumulator.merge(value) { |_, old_value, new_value| old_value + new_value }
         end
       end

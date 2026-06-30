@@ -38,4 +38,28 @@ RSpec.describe DBotQuery::CLI, type: :cli do
       end.to output(/ERROR: "rspec summary" was called with arguments \["--gooof"\]/).to_stderr
     end
   end
+
+  describe 'package search' do
+    it "works for 'nokogiri'" do
+      expect do
+        run_cli 'package_search', '-f', input_file, '--package', 'nokogiri'
+      end.to output(/blockchain-integration-library/).to_stdout
+    end
+  end
+
+  describe 'sla statistics' do
+    it 'works with no options' do
+      expect do
+        run_cli 'sla_stats', '-f', input_file
+      end.to output(/"medium": 33,/).to_stdout
+    end
+  end
+
+  describe 'repo sla statistics' do
+    it 'works with no options' do
+      expect do
+        run_cli 'repo_sla_stats', '-f', input_file
+      end.to output(/-library": {/).to_stdout
+    end
+  end
 end
