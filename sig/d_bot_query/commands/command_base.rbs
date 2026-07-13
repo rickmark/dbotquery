@@ -31,7 +31,11 @@ module DBotQuery
       def execute!: (String file) -> void
 
       def perform: (input) -> { count: Integer }
-    end
+
+      private
+
+      def read_input: (Pathname) -> input
     end
   end
+end
 

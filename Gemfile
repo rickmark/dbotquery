@@ -16,8 +16,11 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bundler-audit'
   gem 'byebug'
+  gem 'gemika'
   gem 'pry'
+  gem 'reek'
   gem 'rubocop', '~> 1.21'
   gem 'rubocop-performance'
   gem 'rubocop-rake'

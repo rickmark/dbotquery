@@ -11,14 +11,19 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
         ruby:
-          - '4.0.5'
-
+          - "3.3.11"
+          - "3.4.9"
+          - "4.0.5"
+        gemfile:
+          - Gemfile
+    env:
+      BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:
       - uses: actions/checkout@v6
         with:

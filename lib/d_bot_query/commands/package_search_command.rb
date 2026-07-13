@@ -33,10 +33,15 @@ module DBotQuery
       end
 
       def perform(input)
-        selection = input.select do |finding|
+        where_package(input).map { |finding| finding[:repository][:full_name] }.uniq
+      end
+
+      private
+
+      def where_package(input)
+        input.select do |finding|
           finding[:dependency][:package][:name] == @package
         end
-        selection.map { |finding| finding[:repository][:full_name] }.uniq
       end
     end
   end

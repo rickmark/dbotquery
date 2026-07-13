@@ -9,15 +9,14 @@ Gem::Specification.new do |spec|
   spec.authors = ['Rick Mark']
   spec.email = ['rickmark@outlook.com']
 
-  spec.summary = 'TODO: Write a short summary, because RubyGems requires one.'
-  spec.description = 'TODO: Write a longer description or delete this line.'
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.summary = 'Command-line reports for Dependabot exports'
+  spec.description = 'DBotQuery reads Dependabot JSON exports and produces summary, SLA, and package search reports.'
+  spec.homepage = 'https://github.com/rickmark/dbotquery'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 4.0'
-  spec.metadata['allowed_push_host'] = "TODO: Set to your gem server 'https://example.com'"
+  spec.required_ruby_version = '>= 3.3'
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = "TODO: Put your gem's public repo URL here."
-  spec.metadata['changelog_uri'] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata['source_code_uri'] = spec.homepage
+  spec.metadata['changelog_uri'] = "#{spec.homepage}/blob/main/CHANGELOG.md"
 
   # Uncomment the line below to require MFA for gem pushes.
   # This helps protect your gem from supply chain attacks by ensuring
@@ -39,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
+  spec.add_dependency 'json-schema', '~> 5.0'
   spec.add_dependency 'thor', '~> 1.5'
 
   # For more information and examples about making a new gem, check out our

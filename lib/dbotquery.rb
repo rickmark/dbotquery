@@ -5,6 +5,8 @@ require 'json'
 require 'thor'
 require 'time'
 require 'date'
+require 'uri'
+require 'json-schema'
 require_relative 'd_bot_query/version'
 
 # # Dependabot Data Viewer
@@ -25,7 +27,10 @@ require_relative 'd_bot_query/version'
 # document. Please feel free to consult GitHub’s documentation on this file.
 #
 module DBotQuery
+  # This is a generic wrapper error for those error types raised specifically by this gem.
   class Error < StandardError; end
+
+  SCHEMA_PATH = File.join(File.dirname(__FILE__), 'schema.json')
 
   autoload :CLI, 'd_bot_query/cli'
 
@@ -44,5 +49,9 @@ module DBotQuery
     autoload :SummaryCommand, 'd_bot_query/commands/summary_command'
     autoload :RepoSLAStatisticsCommand, 'd_bot_query/commands/repo_sla_statistics_command'
     autoload :SLAStatisticsCommand, 'd_bot_query/commands/sla_statistics_command'
+  end
+
+  def self.schema
+    @schema ||= JSON.parse(File.read(SCHEMA_PATH))
   end
 end

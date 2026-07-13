@@ -6,6 +6,11 @@ module DBotQuery
   # * The separation of the command and its unit tests from the actual command line
   # * The testing of the command line interface, independent of the command itself
   class CLI < Thor
+    # This ensures that Thor exits with a non-zero exit code when an error occurs
+    def self.exit_on_failure?
+      true
+    end
+
     # Shared options for all commands are specified here
     class_option :file, required: true, desc: 'Path to JSON file exported from Dependabot', aliases: ['-f'],
                         example: 'dependabot.json'
@@ -30,7 +35,7 @@ module DBotQuery
     method_option :time, desc: 'The time period to calculate the SLA statistics for', example: '2023-01-01T00:00:00Z',
                          aliases: ['-t']
     def sla_stats
-      time = options[:time] ? Time.parse(options[:time]) : Time.now
+      time = parse_time(options[:time])
       run! DBotQuery::Commands::SLAStatisticsCommand.new time: time
     end
 
@@ -38,7 +43,7 @@ module DBotQuery
     method_option :time, desc: 'The time period to calculate the SLA statistics for', example: '2023-01-01T00:00:00Z',
                          aliases: ['-t']
     def repo_sla_stats
-      time = options[:time] ? Time.parse(options[:time]) : Time.now
+      time = parse_time(options[:time])
       run! DBotQuery::Commands::RepoSLAStatisticsCommand.new time: time
     end
 
@@ -55,11 +60,15 @@ module DBotQuery
     def run!(command)
       file = options[:file]
 
-      @command = command
+      command.execute!(file)
+    end
 
-      @command.execute!(file)
-    rescue StandardError => e
-      warn e.message
+    def parse_time(value)
+      return Time.now unless value
+
+      Time.parse(value)
+    rescue ArgumentError => e
+      raise Error, "Invalid time '#{value}': #{e.message}"
     end
   end
 end

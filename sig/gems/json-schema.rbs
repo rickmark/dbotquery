@@ -1,0 +1,5 @@
+module JSON
+  class Validator
+    def self.validate!: (untyped, untyped) -> void
+  end
+end

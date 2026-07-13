@@ -32,7 +32,7 @@ module DBotQuery
 
         raise DBotQuery::Error, "File #{file} does not exist" unless file_path.exist? && file_path.file?
 
-        input = JSON.load_file(file_path.to_s, freeze: true, symbolize_names: true)
+        input = read_input file_path
 
         @result = perform(input)
 
@@ -45,6 +45,18 @@ module DBotQuery
       # @return Hash
       def perform(_input)
         raise NotImplementedError, '#perform is abstract and must be implemented in derived classes'
+      end
+
+      private
+
+      def read_input(file_path)
+        input = JSON.load_file(file_path.to_s, freeze: true, symbolize_names: true)
+
+        JSON::Validator.validate!(DBotQuery.schema, input)
+
+        input
+      rescue JSON::ParserError => e
+        raise DBotQuery::Error, "File #{file_path} is not valid JSON: #{e.message}"
       end
     end
   end

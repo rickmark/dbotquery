@@ -3,6 +3,8 @@ module DBotQuery
     # These are fixups for Thor missing annotations
     def self.long_desc: (String) -> void
 
+    def self.exit_on_failure?: -> bool
+
     @command: Commands::CommandBase
 
     def package_search: -> void
@@ -16,6 +18,8 @@ module DBotQuery
     private
 
     def color_enabled?: -> bool
+
+    def parse_time: (String?) -> Time
 
     def run!: (Commands::CommandBase) -> void
   end

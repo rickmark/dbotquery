@@ -17,23 +17,21 @@ module DBotQuery
     # | -f/--file | yes | Path to JSON file exported from Dependabot | dependabot.json |
     # | --time | no | The date/time for which the SLA is being calculated, in ISO8601 format | 2023-01-01T00:00:00Z |
     #
-    # ##Example commands
+    # ## Example commands
     #
     # * `./your_program repo_sla_stats -f dependabot.json`
-    # ** A count of all findings that exceed the SLA, separated by severity and repository. The current time is
+    #   * A count of all findings that exceed the SLA, separated by severity and repository. The current time is
     # used when calculating age.
     # * `./your_program repo_sla_stats -f dependabot.json -t 2023-01-01T00:00:00Z`
-    # ** A count of all findings that exceed the SLA, separated by severity and repository. The time specified is
+    #   * A count of all findings that exceed the SLA, separated by severity and repository. The time specified is
     # used when calculating age.
     #
     # ## Outputs
     #
     # ```json
     # {
-    # "org/repo": { "low": $count, "medium": $count, "high": $count, "critical":
-    # $count, "total": $count },
-    # "org/repo2": { "low": $count, "medium": $count, "high": $count, "critical":
-    # $count, "total": $count }
+    #   "org/repo": { "low": $count, "medium": $count, "high": $count, "critical": $count, "total": $count },
+    #   "org/repo2": { "low": $count, "medium": $count, "high": $count, "critical": $count, "total": $count }
     # }
     # ```
     #
@@ -43,8 +41,8 @@ module DBotQuery
     class RepoSLAStatisticsCommand < CommandBase
       def initialize(time:)
         super()
-        time = Time.parse(time) if time.is_a?(String)
-        @time = time || Time.now
+        @time = time
+        @time ||= Time.now
         @date = @time.to_date
       end
 
@@ -67,7 +65,7 @@ module DBotQuery
         by_level = findings.group_by do |finding|
           finding[:severity].to_sym #: DBotQuery::Commands::CommandBase::severity
         end
-        by_level = SLA_DEFINITION.to_h { |key, _| [key, 0] }.merge(by_level.transform_values(&:count))
+        by_level = SLA_DEFINITION.to_h { |key, _count| [key, 0] }.merge(by_level.transform_values(&:count))
 
         [repo.to_sym, { **by_level, total: by_level.values.sum }]
       end
@@ -85,10 +83,11 @@ module DBotQuery
       end
 
       def days_open(finding)
-        if finding[:fixed_at]
-          (Time.parse(finding[:fixed_at]).to_date - Time.parse(finding[:created_at]).to_date).to_i
+        create_date = Time.parse(finding[:created_at]).to_date
+        if (fix_date = finding[:fixed_at])
+          (Time.parse(fix_date).to_date - create_date).to_i
         else
-          (@date - Time.parse(finding[:created_at]).to_date).to_i
+          (@date - create_date).to_i
         end
       end
     end

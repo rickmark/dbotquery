@@ -11,14 +11,20 @@ module DBotQuery
     #
     # ## Inputs
     #
+    # | Command Line Flag | Required | Description | Example |
+    # |:--- | :--- | :--- | :--- |
+    # | -f/--file | yes | The path to the JSON file to be processed | dependabot.json |
+    # | --state | no | The state of the vulnerability to be counted | open, fixed, dismissed |
+    # | --severity | no | The severity of the vulnerability to be counted | critical, high, medium, low |
+    #
     # ## Example commands
     #
     # * `./your_program summary -f dependabot.json`
-    # ** Count of all findings in dependabot.json
+    #   * Count of all findings in dependabot.json
     # * `./your_program summary -f dependabot.json --state dismissed`
-    # ** Count of all dismissed findings in dependabot.json
+    #   * Count of all dismissed findings in dependabot.json
     # * `./your_program summary -f dependabot.json --state open --severity critical`
-    # ** Count of all open critical vulnerabilities
+    #  * Count of all open critical vulnerabilities
     #
     # ## Outputs
     #
@@ -38,17 +44,18 @@ module DBotQuery
       end
 
       def perform(input)
-        findings = input
-        findings = findings.select { |finding| finding[:state]&.to_sym == @state } if @state
-        if @severity
-          findings = findings.select do |finding|
-            finding[:security_advisory][:severity]&.to_sym == @severity
-          end
-        end
+        findings = severity_filter(state_filter(input))
+        { count: findings.count }
+      end
 
-        {
-          count: findings.count
-        }
+      private
+
+      def severity_filter(input)
+        @severity ? input.select { |alert| alert[:security_advisory][:severity]&.to_sym == @severity } : input
+      end
+
+      def state_filter(input)
+        @state ? input.select { |alert| alert[:state]&.to_sym == @state } : input
       end
     end
   end

@@ -3,13 +3,16 @@
 
 RSpec.describe DBotQuery::CLI, type: :cli do
   it 'fails when there is no file specified' do
-    expect { run_cli 'summary' }.to output(/No value provided for required options '--file'/).to_stderr
+    run = -> { run_cli 'summary' }
+    aggregate_failures 'result' do
+      expect(run).to output(/No value provided for required options '--file'/).to_stderr
+      expect(exit_status).to eq(1)
+    end
   end
 
   it 'fails when the file does not exist' do
-    expect do
-      run_cli 'summary', '-f', 'nonexistent_file.json'
-    end.to output(/File nonexistent_file.json does not exist/).to_stderr
+    run = -> { run_cli 'summary', '-f', 'nonexistent_file.json' }
+    expect(run).to raise_error(DBotQuery::Error, /File nonexistent_file.json does not exist/)
   end
 
   describe 'summary' do
@@ -32,10 +35,11 @@ RSpec.describe DBotQuery::CLI, type: :cli do
     end
 
     it 'errors when invalid options are provided' do
-      expect do
-        run_cli 'summary', '-f', input_file,
-                '--gooof'
-      end.to output(/ERROR: "rspec summary" was called with arguments \["--gooof"\]/).to_stderr
+      run = -> { run_cli 'summary', '-f', input_file, '--gooof' }
+      aggregate_failures 'testing user attributes' do
+        expect(run).to output(/ERROR: "rspec summary" was called with arguments \["--gooof"\]/).to_stderr
+        expect(exit_status).to eq(1)
+      end
     end
   end
 
@@ -52,6 +56,12 @@ RSpec.describe DBotQuery::CLI, type: :cli do
       expect do
         run_cli 'sla_stats', '-f', input_file
       end.to output(/"medium": 33,/).to_stdout
+    end
+
+    it 'rejects invalid time input' do
+      run = -> { run_cli 'sla_stats', '-f', input_file, '--time', 'not-a-time' }
+
+      expect(run).to raise_error(DBotQuery::Error)
     end
   end
 

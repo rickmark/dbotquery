@@ -3,7 +3,10 @@ module DBotQuery
 
   SLA_DEFINITION: Hash[Commands::CommandBase::severity, Integer]
 
-  class Error < StandardError
+  SCHEMA_PATH: String
 
+  class Error < StandardError
   end
+
+  def self.schema: () -> Hash[untyped, untyped]
 end

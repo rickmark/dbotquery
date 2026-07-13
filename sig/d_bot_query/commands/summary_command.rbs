@@ -8,6 +8,11 @@ module DBotQuery
       @state: CommandBase::state?
 
       def initialize: (state: CommandBase::state?, severity: CommandBase::severity?) -> void
+
+      private
+
+      def state_filter: (CommandBase::input) -> CommandBase::input
+      def severity_filter: (CommandBase::input) -> CommandBase::input
     end
   end
 end

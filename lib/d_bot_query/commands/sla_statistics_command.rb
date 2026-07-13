@@ -20,37 +20,40 @@ module DBotQuery
     #
     # For this subcommand, we should output the number of vulnerabilities that have been open
     # longer than the SLA allows for, separated by severity.
+    #
     # ## Inputs
+    # | Command Line Flag | Required? | Description | Example |
+    # | :--- | :--- | :--- | :--- |
+    # | -f/--file | yes | Path to JSON file exported from Dependabot | dependabot.json |
+    # | --time | no | The date/time for which the SLA is being calculated, in ISO8601 format | 2023-01-01T00:00:00Z |
     #
     # ### Example commands
     # * `./your_program sla_stats -f dependabot.json`
-    # ** A count of all findings that exceed the SLA, separated by severity. The current time is used
+    #   * A count of all findings that exceed the SLA, separated by severity. The current time is used
     # when calculating age.
-    # * `./your_program sla_stats -f dependabot.json -t 2023-01-01T00:00:00Z
-    # ** A count of all findings that exceed the SLA, separated by severity. The time specified is
+    # * `./your_program sla_stats -f dependabot.json -t 2023-01-01T00:00:00Z`
+    #   * A count of all findings that exceed the SLA, separated by severity. The time specified is
     # used when calculating age.
     #
     # ### Outputs
     # ```json
     # {
-    # "low": $count,
-    # "medium": $count,
-    # "high": $count,
-    # "critical": $count,
-    # "total": $count
+    #   "low": $count,
+    #   "medium": $count,
+    #   "high": $count,
+    #   "critical": $count,
+    #   "total": $count
     # }
     # ```
     #
     # Where `$count` represents the number of findings that exceed the SLA for each severity.
     class SLAStatisticsCommand < RepoSLAStatisticsCommand
       def perform(input)
-        result = super
-
         # Because this is just a generalization of the RepoSLAStatisticsCommand, we can gather those results
         # and combine them into a single hash
         base = SLA_DEFINITION.to_h { |severity, _days| [severity, 0] }
-        result.inject(base) do |accumulator, (_repo, value)|
-          accumulator.merge(value) { |_, old_value, new_value| old_value + new_value }
+        super.inject(base) do |accumulator, (_repo, value)|
+          accumulator.merge(value) { |_key, old_value, new_value| old_value + new_value }
         end
       end
     end

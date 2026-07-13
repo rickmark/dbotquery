@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe DBotQuery::Commands::SLAStatisticsCommand, type: :command do
-  let(:fixed_date) { Time.parse('2023-01-01T00:00:00Z') }
+  let(:fixed_date) { Time.utc(2023, 1, 1, 0, 0, 0) }
+  let(:later_date) { Time.utc(2024, 1, 1, 0, 0, 0) }
+
+  before do
+    allow(Time).to receive(:now).and_return(later_date)
+  end
 
   describe 'current time' do
     it 'returns valid results for NOW' do
@@ -33,10 +38,10 @@ RSpec.describe DBotQuery::Commands::SLAStatisticsCommand, type: :command do
       command_then = described_class.new(time: fixed_date)
       command_then.execute!(input_file)
 
-      command_now = described_class.new(time: Time.now)
-      command_now.execute!(input_file)
+      command_later = described_class.new(time: later_date)
+      command_later.execute!(input_file)
 
-      expect(command_then.result).not_to eq(command_now.result)
+      expect(command_then.result).not_to eq(command_later.result)
     end
   end
 end

@@ -1,0 +1,8 @@
+
+---
+detectors:
+  UncommunicativeVariableName:
+    accept:
+      - e
+  MissingSafeMethod:
+    enabled: false
