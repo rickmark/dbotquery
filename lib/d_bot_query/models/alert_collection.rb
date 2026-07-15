@@ -14,6 +14,8 @@ module DBotQuery
       def initialize(alerts)
         @alerts = alerts.map do |alert|
           case alert
+          when Sawyer::Resource
+            Alert.new(alert.to_h)
           when Hash
             Alert.new(alert)
           when Alert

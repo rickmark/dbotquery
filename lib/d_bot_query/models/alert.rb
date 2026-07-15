@@ -24,6 +24,8 @@ module DBotQuery
       attribute :dismissed_by, :string
       attribute :dismissed_comment, :string
       attribute :dismissed_reason, :string
+      attribute :dismissal_request
+      attribute :assignees, :array, of: String
 
       def days_open(as_of)
         as_of = as_of&.to_date || Time.now.to_date

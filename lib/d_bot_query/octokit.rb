@@ -3,7 +3,8 @@ require 'octokit'
 module DBotQuery
   module OctokitExtensions
     def dependabot_org_alerts(org)
-      Models::AlertCollection.new(get("/orgs/#{org}/dependabot/alerts"))
+      result = get("/orgs/#{org}/dependabot/alerts")
+      Models::AlertCollection.new(result)
     end
 
     def dependabot_repo_alerts(owner, repo)

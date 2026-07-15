@@ -41,8 +41,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activemodel', '>= 8.0'
   spec.add_dependency 'addressable'
   spec.add_dependency 'json-schema', '~> 5.0'
-  spec.add_dependency 'thor', '~> 1.5'
   spec.add_dependency 'octokit'
+  spec.add_dependency 'thor', '~> 1.5'
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://guides.rubygems.org/make-your-own-gem/

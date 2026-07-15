@@ -16,7 +16,10 @@ module DBotQuery
       attribute :references, :array, of: Reference
       attribute :vulnerabilities, :array, of: SecurityVulnerability
       attribute :cvss, CVSS
+      attribute :cvss_severities, :array, of: CVSSSeverity
       attribute :cwes, :array, of: CWE
+      attribute :epss
+      attribute :classification
     end
   end
 end

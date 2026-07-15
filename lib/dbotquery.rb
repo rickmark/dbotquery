@@ -71,6 +71,7 @@ module DBotQuery
     autoload :Reference, 'd_bot_query/models/reference'
     autoload :CVSS, 'd_bot_query/models/cvss'
     autoload :CWE, 'd_bot_query/models/cwe'
+    autoload :CVSSSeverity, 'd_bot_query/models/cvss_severity'
   end
 
   require 'd_bot_query/octokit'

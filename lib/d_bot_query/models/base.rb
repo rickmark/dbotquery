@@ -59,7 +59,7 @@ module DBotQuery
 
         def materialize(item)
           case item
-          when Hash
+          when Hash, Array
             target_class.new(item)
           when target_class
             item

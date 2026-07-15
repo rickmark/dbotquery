@@ -7,6 +7,7 @@ module DBotQuery
       attribute :package, Package
       attribute :manifest_path
       attribute :scope
+      attribute :relationship
     end
   end
 end
