@@ -4,6 +4,10 @@
 require 'bundler/setup'
 Bundler.setup :test
 
+require 'dotenv'
+
+Dotenv.load
+
 require 'dbotquery'
 
 RSpec.configure do |config|

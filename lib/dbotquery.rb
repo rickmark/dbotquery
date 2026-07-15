@@ -73,6 +73,8 @@ module DBotQuery
     autoload :CWE, 'd_bot_query/models/cwe'
   end
 
+  require 'd_bot_query/octokit'
+
   def self.schema
     SCHEMA
   end

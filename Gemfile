@@ -10,6 +10,7 @@ gem 'rake', '~> 13.0'
 
 group :development, :test do
   gem 'byebug'
+  gem 'dotenv'
   gem 'pry'
   gem 'rbs'
   gem 'rbs-inline'
