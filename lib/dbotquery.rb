@@ -7,6 +7,9 @@ require 'time'
 require 'date'
 require 'uri'
 require 'json-schema'
+require 'active_model'
+require 'active_support/all'
+require 'addressable/template'
 require_relative 'd_bot_query/version'
 
 # # Dependabot Data Viewer
@@ -32,6 +35,8 @@ module DBotQuery
 
   SCHEMA_PATH = File.join(File.dirname(__FILE__), 'schema.json')
 
+  SCHEMA = JSON.parse(File.read(SCHEMA_PATH))
+
   autoload :CLI, 'd_bot_query/cli'
 
   SLA_DEFINITION = {
@@ -51,7 +56,24 @@ module DBotQuery
     autoload :SLAStatisticsCommand, 'd_bot_query/commands/sla_statistics_command'
   end
 
+  # Collection of models used by the DBotQuery library providing API access to data files and their contents.
+  module Models
+    autoload :DataFile, 'd_bot_query/models/data_file'
+    autoload :Base, 'd_bot_query/models/base'
+    autoload :AlertCollection, 'd_bot_query/models/alert_collection'
+    autoload :Alert, 'd_bot_query/models/alert'
+    autoload :Dependency, 'd_bot_query/models/dependency'
+    autoload :Package, 'd_bot_query/models/package'
+    autoload :Repository, 'd_bot_query/models/repository'
+    autoload :SecurityAdvisory, 'd_bot_query/models/security_advisory'
+    autoload :SecurityVulnerability, 'd_bot_query/models/security_vulnerability'
+    autoload :VulnerabilityIdentifier, 'd_bot_query/models/vulnerability_identifier'
+    autoload :Reference, 'd_bot_query/models/reference'
+    autoload :CVSS, 'd_bot_query/models/cvss'
+    autoload :CWE, 'd_bot_query/models/cwe'
+  end
+
   def self.schema
-    @schema ||= JSON.parse(File.read(SCHEMA_PATH))
+    SCHEMA
   end
 end

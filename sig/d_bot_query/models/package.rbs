@@ -1,0 +1,10 @@
+module DBotQuery
+  module Models
+    class Package < Base
+      attr_accessor name: String
+      attr_accessor ecosystem: String
+
+      def ==: (untyped) -> bool
+    end
+  end
+end

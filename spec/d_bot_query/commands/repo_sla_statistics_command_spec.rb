@@ -3,16 +3,16 @@
 RSpec.describe DBotQuery::Commands::RepoSLAStatisticsCommand, type: :command do
   let(:fixed_results) do
     JSON.load_file(File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'repo_stats_result.json'),
-                   symbolize_names: true)
+                   symbolize_names: false)
   end
   let(:fixed_date) { Time.utc(2023, 1, 1, 0, 0, 0) }
-  let(:later_date) { Time.utc(2024, 1, 1, 0, 0, 0) }
-
-  before do
-    allow(Time).to receive(:now).and_return(later_date)
-  end
+  let(:later_date) { Time.utc(2030, 1, 1, 0, 0, 0) }
 
   describe 'current time' do
+    before do
+      allow(Time).to receive(:now).and_return(later_date)
+    end
+
     it 'returns valid results for NOW' do
       command = described_class.new(time: nil)
       command.execute!(input_file)
@@ -24,7 +24,7 @@ RSpec.describe DBotQuery::Commands::RepoSLAStatisticsCommand, type: :command do
       command = described_class.new(time: nil)
       command.execute!(input_file)
 
-      expect(command.result).to have_key(:'dogexchange/blockchain-integration-library')
+      expect(command.result).to have_key('dogexchange/blockchain-integration-library')
     end
   end
 

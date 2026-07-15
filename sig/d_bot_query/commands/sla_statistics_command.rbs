@@ -1,6 +1,11 @@
 module DBotQuery
   module Commands
-    class SLAStatisticsCommand < RepoSLAStatisticsCommand
+    class SLAStatisticsCommand < CommandBase
+      @time: Time
+
+      def initialize: (?time: Time?) -> void
+
+      def perform: (Models::DataFile) -> ActiveSupport::HashWithIndifferentAccess[Models::AlertCollection::sum_type, Integer]
     end
   end
 end

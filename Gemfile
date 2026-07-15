@@ -9,23 +9,23 @@ gemspec
 gem 'rake', '~> 13.0'
 
 group :development, :test do
+  gem 'byebug'
+  gem 'pry'
   gem 'rbs'
   gem 'rbs-inline'
   gem 'rspec', '~> 3.0'
+  gem 'simplecov', '~> 0.22', require: false
   gem 'steep'
 end
 
 group :development do
   gem 'bundler-audit'
-  gem 'byebug'
   gem 'gemika'
-  gem 'pry'
   gem 'reek'
   gem 'rubocop', '~> 1.21'
   gem 'rubocop-performance'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
   gem 'rubocop-yard'
-  gem 'simplecov'
   gem 'yard'
 end

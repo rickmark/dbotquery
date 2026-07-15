@@ -1,0 +1,7 @@
+module DBotQuery
+  module Models
+    class Dependency < Base
+    attr_accessor package: Package
+    end
+  end
+end

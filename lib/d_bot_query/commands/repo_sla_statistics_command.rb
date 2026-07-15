@@ -39,56 +39,13 @@ module DBotQuery
     # repository. The keys here are each repository, and the values are their corresponding
     # SLA stats.
     class RepoSLAStatisticsCommand < CommandBase
-      def initialize(time:)
+      def initialize(time: nil)
         super()
-        @time = time
-        @time ||= Time.now
-        @date = @time.to_date
+        @time = time || Time.now
       end
 
       def perform(input)
-        # Here we select only those which are in violation of the SLA.
-        violation_map = sla_map(input).select do |finding|
-          severity = finding[:severity].to_sym #: DBotQuery::Commands::CommandBase::severity
-          finding[:days_open] > SLA_DEFINITION[severity]
-        end
-
-        # And finally group by the repo
-        violation_map.group_by { |finding| finding[:repo] }.to_h do |repo, findings|
-          sum_repo(repo, findings)
-        end
-      end
-
-      private
-
-      def sum_repo(repo, findings)
-        by_level = findings.group_by do |finding|
-          finding[:severity].to_sym #: DBotQuery::Commands::CommandBase::severity
-        end
-        by_level = SLA_DEFINITION.to_h { |key, _count| [key, 0] }.merge(by_level.transform_values(&:count))
-
-        [repo.to_sym, { **by_level, total: by_level.values.sum }]
-      end
-
-      def sla_map(input)
-        # Here we build an intermediate map of findings to their SLA violations.  It will contain all vulnerabilities,
-        # their severity and the number of days open.
-        input.map do |finding|
-          {
-            repo: finding[:repository][:full_name],
-            days_open: days_open(finding),
-            severity: finding[:security_advisory][:severity]
-          }
-        end
-      end
-
-      def days_open(finding)
-        create_date = Time.parse(finding[:created_at]).to_date
-        if (fix_date = finding[:fixed_at])
-          (Time.parse(fix_date).to_date - create_date).to_i
-        else
-          (@date - create_date).to_i
-        end
+        input.alerts.repo_sla_stats @time
       end
     end
   end

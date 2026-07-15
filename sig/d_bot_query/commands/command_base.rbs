@@ -2,39 +2,16 @@ module DBotQuery
   module Commands
     class CommandBase
       type output = Hash[String, untyped] | Array[String] | Hash[Symbol, untyped]
-      type severity = :low | :medium | :high | :critical
-      type state = :open | :fixed | :dismissed
-      type finding = {
-          created_at: String,
-          ?fixed_at: String,
-          dependency: {
-              package: {
-                  name: String
-                }
-            },
-          repository: {
-              full_name: String
-            },
-          state: state,
-          security_advisory: {
-              severity: severity
-            }
-        }
-      type input = Array[finding]
 
       @result: output
 
       attr_reader result: output
 
-      def initialize: -> void
+      def initialize: () -> void
 
       def execute!: (String file) -> void
 
-      def perform: (input) -> { count: Integer }
-
-      private
-
-      def read_input: (Pathname) -> input
+      def perform: (Models::DataFile) -> untyped
     end
   end
 end

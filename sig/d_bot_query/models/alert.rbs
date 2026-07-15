@@ -1,0 +1,17 @@
+module DBotQuery
+  module Models
+    class Alert < Base
+      type state = :open | :fixed | :dismissed
+
+      def days_open: (Time?) -> Integer
+
+      attr_accessor created_at: Time
+      attr_accessor fixed_at: Time?
+      attr_accessor state: state
+      attr_accessor dependency: Dependency
+      attr_accessor security_advisory: SecurityAdvisory
+      attr_accessor repository: Repository
+      attr_reader severity: SecurityAdvisory::severity
+    end
+  end
+end

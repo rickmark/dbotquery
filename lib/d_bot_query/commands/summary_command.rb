@@ -44,18 +44,7 @@ module DBotQuery
       end
 
       def perform(input)
-        findings = severity_filter(state_filter(input))
-        { count: findings.count }
-      end
-
-      private
-
-      def severity_filter(input)
-        @severity ? input.select { |alert| alert[:security_advisory][:severity]&.to_sym == @severity } : input
-      end
-
-      def state_filter(input)
-        @state ? input.select { |alert| alert[:state]&.to_sym == @state } : input
+        input.alerts.summary @state, @severity
       end
     end
   end

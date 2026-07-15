@@ -1,29 +1,9 @@
 module DBotQuery
   module Commands
     class RepoSLAStatisticsCommand < CommandBase
-      type sum_type = CommandBase::severity | :total
-      type result = Hash[Symbol, Hash[sum_type, Integer]]
-
-      type sla_map =  Array[{
-          repo: String,
-          days_open: Integer,
-          severity: CommandBase::severity
-        }]
-
-      @date: Date
       @time: Time
 
-      def initialize: (time: Time) -> void
-
-      def perform: (CommandBase::input) -> result
-
-      private
-
-      def days_open: (CommandBase::finding) -> Integer
-
-      def sla_map: (CommandBase::input) -> sla_map
-
-      def sum_repo: (String repo, sla_map findings) -> [Symbol, Hash[sum_type, Integer]]
+      def initialize: (?time: Time?) -> void
     end
   end
 end

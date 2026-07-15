@@ -1,0 +1,39 @@
+module DBotQuery
+  module Models
+    class Base
+      include ActiveModel::Model
+      include ActiveModel::Attributes
+      include ActiveModel::Validations
+
+      def self.assert_valid_value: (untyped) -> bool?
+
+      def self.attribute: (::Symbol, ?Symbol | Class, ?of: Class) -> void
+      def self.attributes: (Symbol, *Symbol) -> void
+
+      def self.attribute_names: () -> Array[String]
+
+      def self.cast: (Hash[untyped, untyped]) -> instance
+
+      def self.mutable?: -> bool
+
+      def self.validate_hash_attributes: (Hash[String, untyped]) -> Array[String]
+
+      interface _HashConstructable[T]
+        def new: (Hash[untyped, untyped]) -> T
+        def ===: (untyped) -> bool
+      end
+
+      class ObjectArray[T < _HashConstructable[T]] < ActiveModel::Type::Value
+        def initialize: (of: _HashConstructable[T]) -> void
+
+        attr_accessor target_class: _HashConstructable[T]
+
+        def cast: (Array[Hash[untyped, untyped]]) -> Array[T]
+
+        private
+
+        def materialize: (Hash[untyped, untyped] | T) -> T
+      end
+    end
+  end
+end

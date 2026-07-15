@@ -1,0 +1,21 @@
+module DBotQuery
+  module Models
+    class DataFile
+      type data = Array[Hash[untyped, untyped]]
+
+      @data: data
+      @alerts: AlertCollection
+
+      attr_reader alerts: AlertCollection
+      attr_reader data: data
+
+      def initialize: (data) -> void
+
+      def self.from_data: (String | Pathname, ?loader_method: Symbol) -> instance
+
+      def self.load: (String) -> instance
+
+      def self.load_file: (String | Pathname) -> instance
+    end
+  end
+end

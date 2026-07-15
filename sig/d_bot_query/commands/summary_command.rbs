@@ -1,18 +1,15 @@
 module DBotQuery
   module Commands
     class SummaryCommand < CommandBase
-      attr_reader severity: CommandBase::severity?
-      attr_reader state: CommandBase::state?
+      attr_reader severity: Models::SecurityAdvisory::severity?
+      attr_reader state: Models::Alert::state?
 
-      @severity: CommandBase::severity?
-      @state: CommandBase::state?
+      @severity: Models::SecurityAdvisory::severity?
+      @state: Models::Alert::state?
 
-      def initialize: (state: CommandBase::state?, severity: CommandBase::severity?) -> void
+      def initialize: (state: Models::Alert::state?, severity: Models::SecurityAdvisory::severity?) -> void
 
-      private
-
-      def state_filter: (CommandBase::input) -> CommandBase::input
-      def severity_filter: (CommandBase::input) -> CommandBase::input
+      def perform: (Models::DataFile) -> { count: Integer }
     end
   end
 end

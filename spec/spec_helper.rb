@@ -2,7 +2,7 @@
 # rbs_inline: enabled
 
 require 'bundler/setup'
-Bundler.setup
+Bundler.setup :test
 
 require 'dbotquery'
 

@@ -5,11 +5,7 @@ module DBotQuery
 
       def initialize: (package: String) -> void
 
-      def perform: (CommandBase::input) -> Array[String]
-
-      private
-
-      def where_package: (CommandBase::input) -> CommandBase::input
+      def perform: (Models::DataFile) -> Array[String]
     end
   end
 end

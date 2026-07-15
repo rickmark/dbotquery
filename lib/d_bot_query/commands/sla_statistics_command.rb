@@ -47,14 +47,15 @@ module DBotQuery
     # ```
     #
     # Where `$count` represents the number of findings that exceed the SLA for each severity.
-    class SLAStatisticsCommand < RepoSLAStatisticsCommand
+    class SLAStatisticsCommand < CommandBase
+      def initialize(time: nil)
+        super()
+
+        @time = time || Time.now
+      end
+
       def perform(input)
-        # Because this is just a generalization of the RepoSLAStatisticsCommand, we can gather those results
-        # and combine them into a single hash
-        base = SLA_DEFINITION.to_h { |severity, _days| [severity, 0] }
-        super.inject(base) do |accumulator, (_repo, value)|
-          accumulator.merge(value) { |_key, old_value, new_value| old_value + new_value }
-        end
+        input.alerts.sla_stats @time
       end
     end
   end

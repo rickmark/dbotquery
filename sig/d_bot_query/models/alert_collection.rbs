@@ -1,0 +1,41 @@
+module DBotQuery
+  module Models
+    class AlertCollection
+      include Enumerable[Alert]
+      type sum_type = Models::SecurityAdvisory::severity | :total
+
+      @alerts: Array[Models::Alert]
+
+      def self.from_data: (untyped, ?Symbol) -> instance
+
+      def self.load: (String) -> instance
+
+      def self.load_file: (String) -> instance
+
+      def initialize: (Enumerable[Alert] | DataFile::data) -> void
+
+      def package_search: (String) -> Array[String]
+
+      def select: () { (Alert) -> bool } -> AlertCollection
+      def each: () { (Alert) -> void } -> void
+
+      def severity_filter: (SecurityAdvisory::severity?) -> AlertCollection
+
+      def state_filter: (Alert::state?) -> AlertCollection
+
+      def sum_repo: (Repository, Array[Alert]) -> untyped
+
+      def summary: (Alert::state?, SecurityAdvisory::severity?) -> { count: Integer }
+
+      def sla_stats: (Time?) -> ActiveSupport::HashWithIndifferentAccess[sum_type, ::Integer]
+
+      def repo_sla_stats: (Time?) -> ActiveSupport::HashWithIndifferentAccess[String, Hash[sum_type, Integer]]
+
+      def sla_violations: (Time?) -> Array[Alert]
+
+      private
+
+      def where_package: (String) -> AlertCollection
+    end
+  end
+end

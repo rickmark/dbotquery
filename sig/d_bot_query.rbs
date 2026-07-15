@@ -1,9 +1,11 @@
 module DBotQuery
   VERSION: String
 
-  SLA_DEFINITION: Hash[Commands::CommandBase::severity, Integer]
+  SLA_DEFINITION: Hash[Models::SecurityAdvisory::severity, Integer]
 
   SCHEMA_PATH: String
+
+  SCHEMA: Hash[untyped, untyped]
 
   class Error < StandardError
   end

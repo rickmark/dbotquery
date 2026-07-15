@@ -1,0 +1,9 @@
+module DBotQuery
+  module Models
+    class SecurityAdvisory < Base
+      type severity = :low | :medium | :high | :critical
+
+      attr_accessor severity: severity
+    end
+  end
+end

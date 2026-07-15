@@ -1,0 +1,11 @@
+module DBotQuery
+  module Models
+    class Repository < Base
+      attr_accessor full_name: String
+
+      def ==: (untyped) -> bool
+
+      def to_s: -> String
+    end
+  end
+end

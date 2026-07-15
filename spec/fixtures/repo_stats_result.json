@@ -1,73 +1,59 @@
 {
-  "dogexchange/blockchain-integration-library": {
-    "low": 1,
-    "medium": 8,
-    "high": 15,
-    "critical": 4,
-    "total": 28
-  },
   "dogexchange/blocklinklib": {
     "low": 0,
     "medium": 0,
     "high": 1,
-    "critical": 1,
-    "total": 2
+    "critical": 0,
+    "total": 1
   },
   "dogexchange/account-reconciliation-tool": {
-    "low": 2,
-    "medium": 5,
-    "high": 11,
-    "critical": 3,
-    "total": 21
-  },
-  "dogexchange/finanalytx": {
-    "low": 2,
-    "medium": 1,
-    "high": 0,
-    "critical": 1,
-    "total": 4
-  },
-  "dogexchange/risk-management-toolkit": {
     "low": 0,
     "medium": 1,
-    "high": 1,
-    "critical": 1,
-    "total": 3
-  },
-  "dogexchange/credit-score-modeling": {
-    "low": 0,
-    "medium": 0,
-    "high": 3,
-    "critical": 0,
-    "total": 3
-  },
-  "dogexchange/financial-analytics-dashboard": {
-    "low": 1,
-    "medium": 0,
     "high": 0,
     "critical": 0,
     "total": 1
   },
-  "dogexchange/loan-approval-automation": {
+  "dogexchange/blockchain-integration-library": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/risk-management-toolkit": {
+    "low": 0,
+    "medium": 0,
+    "high": 0,
+    "critical": 1,
+    "total": 1
+  },
+  "dogexchange/finanalytx": {
     "low": 0,
     "medium": 1,
-    "high": 4,
+    "high": 0,
     "critical": 0,
-    "total": 5
+    "total": 1
   },
   "dogexchange/payment-processing-service": {
     "low": 0,
     "medium": 1,
-    "high": 1,
-    "critical": 0,
-    "total": 2
-  },
-  "dogexchange/investment-portfolio-tracker": {
-    "low": 1,
-    "medium": 3,
     "high": 0,
     "critical": 0,
-    "total": 4
+    "total": 1
+  },
+  "dogexchange/credit-score-modeling": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/investment-portfolio-tracker": {
+    "low": 0,
+    "medium": 1,
+    "high": 0,
+    "critical": 0,
+    "total": 1
   },
   "dogexchange/finreportgen": {
     "low": 0,
@@ -76,19 +62,26 @@
     "critical": 0,
     "total": 1
   },
-  "dogexchange/fraud-prevention-api": {
-    "low": 1,
-    "medium": 1,
-    "high": 1,
-    "critical": 1,
-    "total": 4
-  },
   "dogexchange/algorithmic-trading-strategies": {
     "low": 0,
     "medium": 1,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/fraud-prevention-api": {
+    "low": 0,
+    "medium": 0,
     "high": 1,
-    "critical": 1,
-    "total": 3
+    "critical": 0,
+    "total": 1
+  },
+  "dogexchange/loan-approval-automation": {
+    "low": 0,
+    "medium": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
   },
   "dogexchange/payment-gateway-integration": {
     "low": 0,
@@ -99,10 +92,10 @@
   },
   "dogexchange/transaction-monitoring-system": {
     "low": 0,
-    "medium": 1,
-    "high": 1,
+    "medium": 0,
+    "high": 0,
     "critical": 1,
-    "total": 3
+    "total": 1
   },
   "dogexchange/datencrypt": {
     "low": 1,
@@ -127,10 +120,10 @@
   },
   "dogexchange/loanauto": {
     "low": 0,
-    "medium": 1,
+    "medium": 0,
     "high": 1,
     "critical": 0,
-    "total": 2
+    "total": 1
   },
   "dogexchange/financial-report-generation": {
     "low": 0,
@@ -147,11 +140,11 @@
     "total": 1
   },
   "dogexchange/fraud-detection-algorithms": {
-    "low": 1,
+    "low": 0,
     "medium": 0,
     "high": 1,
     "critical": 0,
-    "total": 2
+    "total": 1
   },
   "dogexchange/sentimentanal": {
     "low": 0,
